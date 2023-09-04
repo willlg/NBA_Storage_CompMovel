@@ -1,0 +1,7 @@
+{
+  "name": "NBAstats",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

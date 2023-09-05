@@ -24,3 +24,28 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+@font-face {
+    font-family: 'Nets';
+    src: url('assets/fonts/Nets.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.titulo-personalizado {
+    font-family: 'Nets', sans-serif;
+    letter-spacing: 0.1em;
+}
+
+@font-face {
+    font-family: 'Kanit-ExtraLight';
+    src: url('assets/fonts/Kanit-ExtraLight.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Kanit', sans-serif;
+  }
+  
+  

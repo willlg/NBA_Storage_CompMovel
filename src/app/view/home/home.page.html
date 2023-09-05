@@ -1,0 +1,41 @@
+<style>
+  .idade-label {
+    font-size: 75%;
+  }
+</style>
+
+
+<ion-header collapse="fade">
+  <ion-toolbar>
+    <ion-title  class="titulo-personalizado">BROOKLYN NETS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let posicao of ['ShootingGuard', 'PointGuard', 'SmallForward', 'PowerForward', 'Center']">
+    <ion-card-header>
+      <ion-card-title  class="titulo-personalizado">{{ posicao | titlecase }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> 
+      <ion-list *ngFor="let jogador of getJogadoresPorPosicao(posicao)">
+        <ion-item (click)="editar(jogador)">
+          <ion-thumbnail slot="start">
+            <img alt="Foto do jogador" src="https://patch.com/img/cdn/users/68453/2012/05/raw/842b4607fd503508899d7e15b062a4d5.jpg" /> 
+          </ion-thumbnail>
+          <ion-label >{{jogador.nome}}</ion-label>
+          <ion-label slot="end" class="idade-label">{{jogador.idade}} anos</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button (click)="irParaCadastrar()" style="--background: var(--ion-color-quartiary);">
+      <ion-icon name="add-circle-outline" style="color: var(--ion-color-quartiary-contrast);"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+  
+
+</ion-content>

@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="titulo-personalizado">DETALHES DO JOGADOR</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item class="input-personalizado">
+      <ion-toggle (ionChange)="habilitar()">Alterar Dados</ion-toggle>
+    </ion-item>
+    <ion-item class="input-personalizado">
+      <ion-input label="Nome" label-placement="floating" fill="solid" placeholder="Insira o nome" [(ngModel)]="nome"></ion-input>
+    </ion-item>
+    <ion-item class="input-personalizado">
+      <ion-input label="Idade" label-placement="floating" fill="solid" placeholder="Insira a idade" [(ngModel)]="idade"></ion-input>
+    </ion-item>
+    <ion-item class="input-personalizado">
+      <ion-input label="Altura" label-placement="floating" fill="solid" placeholder="Insira a altura" [(ngModel)]="altura"></ion-input>
+    </ion-item>
+    <ion-item class="input-personalizado">
+      <ion-input label="Peso" label-placement="floating" fill="solid" placeholder="Insira o peso" [(ngModel)]="peso"></ion-input>
+    </ion-item>
+    <ion-item class="input-personalizado">
+      <ion-input label="Universidade" label-placement="floating" fill="solid" placeholder="Insira a universidade" [(ngModel)]="universidade"></ion-input>
+    </ion-item>
+    <ion-item class="input-personalizado">
+      <ion-select placeholder="Selecione a posição" [(ngModel)]="posicao">
+        <ion-select-option value="ShootingGuard">Shooting Guard</ion-select-option>
+        <ion-select-option value="PointGuard">Point Guard</ion-select-option>
+        <ion-select-option value="SmallForward">Small Forward</ion-select-option>
+        <ion-select-option value="PowerForward">Power Forward</ion-select-option>
+        <ion-select-option value="Center">Center</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<div class="ion-padding">
+  <ion-button expand="block" (click)="confirmarEdicao()" [disabled]="edicao">Salvar</ion-button> <!-- Mude o método chamado aqui -->
+  <ion-button expand="block" (click)="confirmarExclusao()" [disabled]="edicao" color="danger">Excluir</ion-button> <!-- Mude o método chamado aqui -->
+</div>

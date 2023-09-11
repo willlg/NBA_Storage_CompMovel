@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Jogador from 'src/app/model/entities/Jogador';
 import { FirebaseService } from 'src/app/model/services/firestore.service';
-import { AlertController } from '@ionic/angular'; // 1. Importe o AlertController
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-detalhar',
@@ -23,7 +23,7 @@ export class DetalharPage implements OnInit {
   constructor(
     private router: Router,
     private firebase: FirebaseService,
-    private alertController: AlertController // 2. Injete o AlertController no construtor
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -42,6 +42,26 @@ export class DetalharPage implements OnInit {
     } else {
       this.edicao = true;
     }
+  }
+
+  editar() {
+    if (this.nome && this.idade && this.altura && this.peso && this.universidade && this.posicao) {
+      let novo: Jogador = new Jogador(this.nome, this.idade, this.altura, this.peso, this.universidade, this.posicao);
+      this.firebase.update(novo, this.jogador.id);
+      this.router.navigate(['/home']);
+    } else {
+      this.presentAlert('Erro', 'Por favor preencha todos os campos!');
+    }
+  }
+  
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK']
+    });
+  
+    await alert.present();
   }
 
   async confirmarEdicao() {
@@ -86,11 +106,6 @@ export class DetalharPage implements OnInit {
     await alert.present();
   }
 
-  editar() {
-    let novo: Jogador = new Jogador(this.nome, this.idade, this.altura, this.peso, this.universidade, this.posicao);
-    this.firebase.update(novo, this.jogador.id);
-    this.router.navigate(['/home']);
-  }
 
   excluir() {
     this.firebase.delete(this.jogador);

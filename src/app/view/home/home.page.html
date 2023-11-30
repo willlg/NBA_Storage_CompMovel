@@ -6,24 +6,42 @@
 
 
 <ion-header collapse="fade">
-  <ion-toolbar>
-    <ion-title  class="titulo-personalizado">BROOKLYN NETS</ion-title>
+  <ion-toolbar style="--background: #FF4500;" class="ion-text-center">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-img src="assets/icon/okcthunder.png" style="width: 24px; height: 24px;"></ion-img>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="titulo-personalizado">OKLAHOMA CITY THUNDER</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-img src="assets/icon/okcthunder.png" style="width: 24px; height: 24px;"></ion-img>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+
 
 <ion-content>
 
   <ion-card *ngFor="let posicao of ['ShootingGuard', 'PointGuard', 'SmallForward', 'PowerForward', 'Center']">
     <ion-card-header>
-      <ion-card-title  class="titulo-personalizado">{{ posicao | titlecase }}</ion-card-title>
+      <ion-card-title style="color: #FF4500;" class="titulo-personalizado">{{ posicao | titlecase }}</ion-card-title>
     </ion-card-header>
     <ion-card-content> 
       <ion-list *ngFor="let jogador of getJogadoresPorPosicao(posicao)">
         <ion-item (click)="editar(jogador)">
-          <ion-thumbnail slot="start">
-            <img alt="Foto do jogador" src="https://patch.com/img/cdn/users/68453/2012/05/raw/842b4607fd503508899d7e15b062a4d5.jpg" /> 
-          </ion-thumbnail>
-          <ion-label >{{jogador.nome}}</ion-label>
+
+          <ion-avatar *ngIf="jogador.downloadURL != null">
+            <img src="{{jogador.downloadURL}}"/>
+          </ion-avatar>
+          <ion-avatar *ngIf="jogador.downloadURL == null">
+            <img src="assets/avatar.png"/>
+          </ion-avatar>
+          <ion-label style="margin-left: 5%;">{{jogador.nome}}</ion-label>
           <ion-label slot="end" class="idade-label">{{jogador.idade}} anos</ion-label>
         </ion-item>
       </ion-list>

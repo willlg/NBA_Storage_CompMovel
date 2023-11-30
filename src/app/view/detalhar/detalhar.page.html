@@ -12,6 +12,12 @@
     <ion-item class="input-personalizado">
       <ion-toggle (ionChange)="habilitar()">Alterar Dados</ion-toggle>
     </ion-item>
+    <ion-item *ngIf="jogador.downloadURL != null">
+      <img src="{{jogador.downloadURL}}" />
+    </ion-item>
+    <ion-button size="default" color="success" shape="round" disabled="{{edicao}}">
+      <input type="file" (change)="uploadFile($event.target)"/>
+    </ion-button>
     <ion-item class="input-personalizado">
       <ion-input label="Nome" label-placement="floating" fill="solid" placeholder="Insira o nome" [(ngModel)]="nome"></ion-input>
     </ion-item>

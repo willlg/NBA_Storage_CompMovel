@@ -17,6 +17,7 @@ export class CadastrarPage  implements OnInit {
   public peso! : number;
   public universidade! : string;
   public posicao! : Posicao;
+  public imagem: any;
 
   constructor(private alertController: AlertController,
     private router : Router,
@@ -25,10 +26,18 @@ export class CadastrarPage  implements OnInit {
   ngOnInit() {
   }
 
+  public uploadFile(imagem: any){
+    this.imagem = imagem.files;
+  }
+
   cadastrar(){
     if(this.nome && this.idade && this.altura && this.peso && this.posicao && this.universidade){
       let novo : Jogador = new Jogador(this.nome, this.idade, this.altura, this.peso, this.universidade, this.posicao);
-      this.firebase.create(novo);
+      if(this.imagem){
+        this.firebase.uploadImage(this.imagem, novo);
+      }else{
+        this.firebase.create(novo);
+      }
       this.presentAlert("Sucesso!", "Jogador cadastrado.");
       this.router.navigate(["/home"]);
     }else{

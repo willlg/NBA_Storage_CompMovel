@@ -33,6 +33,11 @@
         <ion-select-option value="Center">Center</ion-select-option>
       </ion-select>
     </ion-item>
+    <ion-item>
+      <ion-button size="default" color="success" shape="round" >
+        <input type="file"  (change)="uploadFile($event.target)" />
+      </ion-button>
+    </ion-item>
     <ion-button expand="block" (click)="cadastrar()">Cadastrar</ion-button>
   </ion-list>
 </ion-content>

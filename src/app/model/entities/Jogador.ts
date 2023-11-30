@@ -6,6 +6,7 @@ export default class Jogador{
     public _peso : number;
     public _universidade : string;
     public _posicao : string;
+    private _downloadURL: any; 
   
     constructor(nome: string, idade : number, altura : number, peso : number, universidade : string, posicao : string){
         this._nome = nome;
@@ -15,6 +16,15 @@ export default class Jogador{
         this._universidade = universidade;
         this._posicao = posicao;
     }
+
+    get downloadURL() : any{
+      return this._downloadURL
+     }
+  
+     set downloadURL(downloadURL : any){
+      this._downloadURL = downloadURL;
+     }
+  
   
     public get id(): string {
       return this._id;

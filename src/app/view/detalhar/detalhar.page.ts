@@ -19,6 +19,7 @@ export class DetalharPage implements OnInit {
   jogador: Jogador;
   indice: number;
   edicao: boolean = true;
+  imagem: any;  
 
   constructor(
     private router: Router,
@@ -36,6 +37,12 @@ export class DetalharPage implements OnInit {
     this.posicao = this.jogador.posicao;
   }
 
+  
+  uploadFile(imagem: any){
+    this.imagem = imagem.files;
+  }
+
+
   habilitar() {
     if (this.edicao) {
       this.edicao = false;
@@ -48,8 +55,15 @@ export class DetalharPage implements OnInit {
     if (this.nome && this.idade && this.altura && this.peso && this.universidade && this.posicao) {
       let novo: Jogador = new Jogador(this.nome, this.idade, this.altura, this.peso, this.universidade, this.posicao);
       this.firebase.update(novo, this.jogador.id);
+      if(this.imagem){
+        this.firebase.uploadImage(this.imagem, novo);
+      }else{
+        novo.downloadURL = this.jogador.downloadURL;
+        this.firebase.update(novo, this.jogador.id);
+      }
       this.router.navigate(['/home']);
-    } else {
+    } 
+    else {
       this.presentAlert('Erro', 'Por favor preencha todos os campos!');
     }
   }

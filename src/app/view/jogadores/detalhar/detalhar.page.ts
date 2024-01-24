@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import Jogador from 'src/app/model/entities/Jogador';
 import { FirebaseService } from 'src/app/model/services/firestore.service';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from 'src/app/model/services/auth.service';
+
 
 @Component({
   selector: 'app-detalhar',
@@ -20,12 +22,15 @@ export class DetalharPage implements OnInit {
   indice: number;
   edicao: boolean = true;
   imagem: any;  
+  user: any;
 
   constructor(
     private router: Router,
     private firebase: FirebaseService,
-    private alertController: AlertController
-  ) {}
+    private alertController: AlertController, private auth : AuthService
+  ) {
+    this.user = this.auth.getUserLogged();
+  }
 
   ngOnInit() {
     this.jogador = history.state.jogador;
@@ -54,7 +59,8 @@ export class DetalharPage implements OnInit {
   editar() {
     if (this.nome && this.idade && this.altura && this.peso && this.universidade && this.posicao) {
       let novo: Jogador = new Jogador(this.nome, this.idade, this.altura, this.peso, this.universidade, this.posicao);
-      this.firebase.update(novo, this.jogador.id);
+      novo.id = this.jogador.id;
+      novo.uid = this.user.uid;
       if(this.imagem){
         this.firebase.uploadImage(this.imagem, novo);
       }else{

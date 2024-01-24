@@ -13,19 +13,19 @@ export class FirebaseService {
 
   constructor(private firestore : AngularFirestore, private storage: AngularFireStorage) { }
 
-  read(){
-    return this.firestore.collection(this.PATH)
+  read(uid : string){
+    return this.firestore.collection(this.PATH, ref=> ref.where('uid', '==', uid))
     .snapshotChanges();
   }
 
   create(jogador : Jogador){
     return this.firestore.collection(this.PATH)
-    .add({nome: jogador.nome, idade: jogador.idade, altura: jogador.altura, peso: jogador.peso, universidade: jogador.universidade, posicao : jogador.posicao});
+    .add({nome: jogador.nome, idade: jogador.idade, altura: jogador.altura, peso: jogador.peso, universidade: jogador.universidade, posicao : jogador.posicao, uid: jogador.uid});
   }
 
   update(jogador: Jogador, id: string){
     return this.firestore.collection(this.PATH).doc(id)
-    .update({nome: jogador.nome, idade: jogador.idade, altura: jogador.altura, peso: jogador.peso, universidade: jogador.universidade, posicao : jogador.posicao});
+    .update({nome: jogador.nome, idade: jogador.idade, altura: jogador.altura, peso: jogador.peso, universidade: jogador.universidade, posicao : jogador.posicao, uid: jogador.uid});
   }
 
   delete(jogador: Jogador){
@@ -36,12 +36,12 @@ export class FirebaseService {
 
   createWithImage(jogador: Jogador){
     return this.firestore.collection(this.PATH)
-    .add({nome: jogador.nome, idade: jogador.idade, altura: jogador.altura, peso: jogador.peso, universidade: jogador.universidade, posicao: jogador.posicao, downloadURL : jogador.downloadURL});
+    .add({nome: jogador.nome, idade: jogador.idade, altura: jogador.altura, peso: jogador.peso, universidade: jogador.universidade, posicao: jogador.posicao, downloadURL : jogador.downloadURL, uid: jogador.uid});
   }
 
   updateWithImage(jogador: Jogador, id: string){
     return this.firestore.collection(this.PATH).doc(id)
-    .update({nome: jogador.nome, idade: jogador.idade, altura: jogador.altura, peso: jogador.peso, universidade: jogador.universidade, posicao: jogador.posicao, downloadURL : jogador.downloadURL});
+    .update({nome: jogador.nome, idade: jogador.idade, altura: jogador.altura, peso: jogador.peso, universidade: jogador.universidade, posicao: jogador.posicao, downloadURL : jogador.downloadURL, uid: jogador.uid});
   }
 
   uploadImage(imagem: any, jogador: Jogador){

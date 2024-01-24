@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import Jogador from 'src/app/model/entities/Jogador';
 import { FirebaseService } from 'src/app/model/services/firestore.service';
+import { AuthService } from 'src/app/model/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -10,11 +11,14 @@ import { FirebaseService } from 'src/app/model/services/firestore.service';
 })
 export class HomePage {
   public lista_jogadores : Jogador[] = [];
+  public user : any;
 
   constructor(private firebase : FirebaseService,
-    private router : Router) {
+    private router : Router, private authService : AuthService) {
 
-      this.firebase.read()
+      this.user = this.authService.getUserLogged();
+      console.log(this.authService.getUserLogged());
+      this.firebase.read(this.user.uid)
       .subscribe(res => {
         this.lista_jogadores = res.map(jogador =>{
           return{
@@ -37,5 +41,11 @@ export class HomePage {
   getJogadoresPorPosicao(posicao: string) {
     return this.lista_jogadores.filter(jogador => jogador.posicao === posicao);
   }  
+
+  logout(){
+    this.authService.signOut().then((res)=>{
+      this.router.navigate(["signin"]);
+    })
+  }
   
 }
